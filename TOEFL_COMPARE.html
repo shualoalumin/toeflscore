@@ -64,7 +64,7 @@
     </div>
 
     <div id="grade-averages" class="stats-container">
-        <h2 style="text-align: center;"> 2024년 12월 학년별 통계</h2>
+        <h2 style="text-align: center;">2024년 12월 학년별 통계</h2>
         <table class="stats-table">
             <thead>
                 <tr>
@@ -85,7 +85,7 @@
     </div>
 
     <div id="comparison">
-        <h2 style="text-align: center;"> Section별 비교 (2024년 8월 vs 12월)</h2>
+        <h2 style="text-align: center;">Section별 비교 (2024년 8월 vs 12월)</h2>
         <table class="stats-table">
             <thead>
                 <tr>
@@ -183,16 +183,13 @@
         ];
 
         document.addEventListener('DOMContentLoaded', () => {
-            const stats = calculateStatistics(decemberData);
-            updateGradeAveragesTable(stats);
             compareScores();
         });
 
         function compareScores() {
             const comparison = decemberData.map(curr => {
-                const prev = augustData.find(p => p.name.trim().toLowerCase() === curr.name.trim().toLowerCase());
+                const prev = augustData.find(p => p.name === curr.name);
                 if (prev) {
-                    console.log('Comparing:', curr.name);
                     return {
                         grade: curr.grade,
                         name: curr.name,
@@ -208,11 +205,9 @@
                         TOTAL_curr: curr.TOTAL
                     };
                 }
-                console.warn(`이름 매칭 실패: ${curr.name}`);
-        return null;
-    }).filter(Boolean);
+                return null;
+            }).filter(Boolean);
 
-            console.log("최종 비교 데이터:", comparison);
             updateTable(comparison);
         }
 
@@ -234,65 +229,6 @@
                     <td>${c.TOTAL_curr}</td>
                 </tr>
             `).join('');
-        }
-
-        function calculateStatistics(data) {
-            const grades = {};
-
-            // Group data by grade
-            data.forEach(student => {
-                const grade = student.grade;
-                if (!grades[grade]) {
-                    grades[grade] = { R: [], L: [], S: [], W: [], TOTAL: [], count: 0 };
-                }
-                grades[grade].R.push(student.R);
-                grades[grade].L.push(student.L);
-                grades[grade].S.push(student.S);
-                grades[grade].W.push(student.W);
-                grades[grade].TOTAL.push(student.TOTAL);
-                grades[grade].count++;
-            });
-
-            // Calculate averages and standard deviations
-            const stats = {};
-            for (const grade in grades) {
-                stats[grade] = {};
-                ['R', 'L', 'S', 'W', 'TOTAL'].forEach(section => {
-                    const values = grades[grade][section];
-                    const avg = values.reduce((a, b) => a + b, 0) / values.length;
-                    const stdDev = Math.sqrt(values.map(x => Math.pow(x - avg, 2)).reduce((a, b) => a + b) / values.length);
-                    stats[grade][section] = { average: avg.toFixed(1), stdDev: stdDev.toFixed(1) };
-                });
-            }
-
-            return stats;
-        }
-
-        function updateGradeAveragesTable(stats) {
-            const tbody = document.querySelector('#grade-averages tbody');
-            tbody.innerHTML = ''; // Clear existing rows
-
-            for (const grade in stats) {
-                const avgRow = `<tr>
-                    <td rowspan="2">${grade}</td>
-                    <td>평균</td>
-                    <td>${stats[grade].R.average}</td>
-                    <td>${stats[grade].L.average}</td>
-                    <td>${stats[grade].S.average}</td>
-                    <td>${stats[grade].W.average}</td>
-                    <td>${stats[grade].TOTAL.average}</td>
-                    <td rowspan="2">${grades[grade].count}</td>
-                </tr>`;
-                const stdDevRow = `<tr>
-                    <td>표준편차</td>
-                    <td>${stats[grade].R.stdDev}</td>
-                    <td>${stats[grade].L.stdDev}</td>
-                    <td>${stats[grade].S.stdDev}</td>
-                    <td>${stats[grade].W.stdDev}</td>
-                    <td>${stats[grade].TOTAL.stdDev}</td>
-                </tr>`;
-                tbody.innerHTML += avgRow + stdDevRow;
-            }
         }
     </script>
 </body>
