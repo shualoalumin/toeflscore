@@ -191,9 +191,8 @@
             const comparison = decemberData.map(curr => {
                 const prev = augustData.find(p => p.name === curr.name);
                 if (prev) {
-                    const grade = curr.name.match(/\d+/) ? curr.name.match(/\d+/)[0] : 'N/A';
                     return {
-                        grade,
+                        grade: curr.grade,
                         name: curr.name,
                         R_prev: prev.R,
                         R_curr: curr.R,
