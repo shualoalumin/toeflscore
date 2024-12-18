@@ -5,42 +5,91 @@
     <title>TOEFL Stat Analysis</title>
     <style>
         body {
-            background-color: #121212;
-            color: #ffffff;
             font-family: Arial, sans-serif;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #1a1a1a;
+            color: #e0e0e0;
         }
-        .stats-table {
+        table {
             width: 100%;
             border-collapse: collapse;
             margin-bottom: 20px;
         }
-        .stats-table th, .stats-table td {
-            border: 1px solid #ffffff;
-            padding: 12px;
+        th, td {
+            border: 1px solid #404040;
+            padding: 8px;
             text-align: center;
-            background-color: #1e1e1e;
         }
-        .stats-table th {
-            background-color: #333333;
+        th {
+            background-color: #2c2c2c;
+            font-weight: bold;
         }
-        .header {
-            text-align: center;
-            margin: 20px;
+        tr:nth-child(even) {
+            background-color: transparent;
         }
-        .button-container {
-            text-align: center;
-            margin: 20px;
+        tr:hover {
+            background-color: #2a2a2a;
         }
-        .button {
-            background-color: #1e88e5;
-            color: #ffffff;
+        #grade-averages {
+            display: none;
+            margin-top: 20px;
+            border: 1px solid #404040;
+            padding: 15px;
+            background-color: #1a1a1a;
+        }
+        #toggle-averages {
+            background-color: #45a049;
+            color: white;
+            border: none;   
             padding: 10px 20px;
+            text-align: center;
             text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 10px 0;
+            cursor: pointer;
             border-radius: 5px;
-            transition: background-color 0.3s;
         }
-        .button:hover {
-            background-color: #1565c0;
+        #toggle-averages:hover {
+            background-color: #3d8b40;
+        }
+        td:last-child {
+            background-color: #2c2c2c;
+        }
+        th:last-child {
+            background-color: #2c2c2c;
+        }
+        .filter-section {
+            margin: 20px 0;
+            padding: 15px;
+            background-color: #2c2c2c;
+            border-radius: 5px;
+        }
+        
+        .filter-section select, .filter-section input {
+            padding: 8px;
+            margin: 5px;
+            background-color: #333;
+            color: #e0e0e0;
+            border: 1px solid #404040;
+            border-radius: 4px;
+        }
+        
+        .stats-table {
+            margin-top: 20px;
+        }
+        
+        .sort-header {
+            cursor: pointer;
+        }
+        
+        .sort-header:hover {
+            background-color: #3c3c3c;
+        }
+        a:hover {
+            background-color: #3d8b40;
         }
     </style>
 </head>
