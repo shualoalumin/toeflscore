@@ -241,13 +241,14 @@
             data.forEach(student => {
                 const grade = student.grade;
                 if (!grades[grade]) {
-                    grades[grade] = { R: [], L: [], S: [], W: [], TOTAL: [] };
+                    grades[grade] = { R: [], L: [], S: [], W: [], TOTAL: [], count: 0 };
                 }
                 grades[grade].R.push(student.R);
                 grades[grade].L.push(student.L);
                 grades[grade].S.push(student.S);
                 grades[grade].W.push(student.W);
                 grades[grade].TOTAL.push(student.TOTAL);
+                grades[grade].count++;
             });
 
             // Calculate averages and standard deviations
@@ -278,7 +279,7 @@
                     <td>${stats[grade].S.average}</td>
                     <td>${stats[grade].W.average}</td>
                     <td>${stats[grade].TOTAL.average}</td>
-                    <td rowspan="2">${grades[grade].R.length}</td>
+                    <td rowspan="2">${grades[grade].count}</td>
                 </tr>`;
                 const stdDevRow = `<tr>
                     <td>표준편차</td>
