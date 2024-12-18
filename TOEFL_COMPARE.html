@@ -237,7 +237,7 @@
 
             // Group data by grade
             data.forEach(student => {
-                const grade = student.name.match(/\d+/)[0]; // Assuming grade is part of the name
+                const grade = student.grade;
                 if (!grades[grade]) {
                     grades[grade] = { R: [], L: [], S: [], W: [], TOTAL: [] };
                 }
@@ -293,9 +293,8 @@
         document.addEventListener('DOMContentLoaded', () => {
             const stats = calculateStatistics(decemberData);
             updateGradeAveragesTable(stats);
+            compareScores();
         });
-
-        document.addEventListener('DOMContentLoaded', compareScores);
     </script>
 </body>
 </html> 
