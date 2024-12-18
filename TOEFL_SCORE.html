@@ -195,9 +195,34 @@
                 </tr>
             `).join('');
         }
+        function calculateAverages(data) {
+            const fields = ['R', 'L', 'S', 'W', 'TOTAL'];
+            const averages = {};
+
+            fields.forEach(field => {
+                const sum = data.reduce((acc, student) => acc + student[field], 0);
+                averages[field] = (sum / data.length).toFixed(1);
+            });
+
+            return averages;
+        }
+
+        function renderAverages(averages) {
+            const averageRow = document.getElementById('average-row');
+            averageRow.innerHTML = `
+                <td colspan="2">평균</td>
+                <td>${averages.R}</td>
+                <td>${averages.L}</td>
+                <td>${averages.S}</td>
+                <td>${averages.W}</td>
+                <td>${averages.TOTAL}</td>
+            `;
+        }
 
         document.addEventListener('DOMContentLoaded', () => {
             renderTable(students);
+            const averages = calculateAverages(students);
+            renderAverages(averages);
         });
     </script>
 </body>
