@@ -89,6 +89,7 @@
         <table class="stats-table">
             <thead>
                 <tr>
+                    <th>학년</th>
                     <th>이름</th>
                     <th>R(8월)</th>
                     <th>R(12월)</th>
@@ -193,7 +194,9 @@
             const comparison = decemberData.map(curr => {
                 const prev = augustData.find(p => p.name === curr.name);
                 if (prev) {
+                    const grade = curr.name.match(/\d+/)[0];
                     return {
+                        grade,
                         name: curr.name,
                         R_prev: prev.R,
                         R_curr: curr.R,
@@ -207,8 +210,8 @@
                         TOTAL_curr: curr.TOTAL
                     };
                 }
-                return null; // 8월에 응시하지 않은 경우
-            }).filter(Boolean); // null 값 제거
+                return null;
+            }).filter(Boolean);
 
             updateTable(comparison);
         }
@@ -217,6 +220,7 @@
             const tbody = document.getElementById('comparison-body');
             tbody.innerHTML = comparison.map(c => `
                 <tr>
+                    <td>${c.grade}</td>
                     <td>${c.name}</td>
                     <td>${c.R_prev}</td>
                     <td>${c.R_curr}</td>
