@@ -117,7 +117,7 @@
             { grade: 7, name: "윤수아", R: 0, L: 18, S: 15, W: 11, TOTAL: 44 },
             { grade: 7, name: "우태웅", R: 3, L: 2, S: 11, W: 11, TOTAL: 27 },
             { grade: 7, name: "백시안", R: 10, L: 9, S: 12, W: 14, TOTAL: 45 },
-            { grade: 7, name: "���도형", R: 1, L: 11, S: 13, W: 11, TOTAL: 36 },
+            { grade: 7, name: "우도형", R: 1, L: 11, S: 13, W: 11, TOTAL: 36 },
             { grade: 7, name: "김주원", R: 16, L: 28, S: 22, W: 20, TOTAL: 86 },
             { grade: 7, name: "나하린", R: 8, L: 6, S: 0, W: 11, TOTAL: 25 },
             { grade: 8, name: "김다원", R: 20, L: 15, S: 18, W: 14, TOTAL: 67 },
@@ -181,6 +181,7 @@
             { grade: 10, name: "최주원", R: 9, L: 7, S: 19, W: 15, TOTAL: 50 },
             { grade: 10, name: "오윤", R: 4, L: 8, S: 23, W: 15, TOTAL: 50 }
         ];
+
         document.addEventListener('DOMContentLoaded', () => {
             const stats = calculateStatistics(decemberData);
             updateGradeAveragesTable(stats);
@@ -290,12 +291,6 @@
                 tbody.innerHTML += avgRow + stdDevRow;
             }
         }
-
-        document.addEventListener('DOMContentLoaded', () => {
-            const stats = calculateStatistics(decemberData);
-            updateGradeAveragesTable(stats);
-            compareScores();
-        });
     </script>
 </body>
 </html> 
