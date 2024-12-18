@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>TOEFL 성적 비교</title>
+    <style>
+        body {
+            background-color: #121212;
+            color: #ffffff;
+            font-family: Arial, sans-serif;
+        }
+        .stats-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        .stats-table th, .stats-table td {
+            border: 1px solid #ffffff;
+            padding: 12px;
+            text-align: center;
+            background-color: #1e1e1e;
+        }
+        .stats-table th {
+            background-color: #333333;
+        }
+        .header {
+            text-align: center;
+            margin: 20px;
+        }
+        .button-container {
+            text-align: center;
+            margin: 20px;
+        }
+        .button {
+            background-color: #1e88e5;
+            color: #ffffff;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+        .button:hover {
+            background-color: #1565c0;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>TOEFL 성적 비교</h1>
+    </div>
+
+    <div class="button-container">
+        <a href="TOEFL_SCORE.html" class="button">현재 성적 보기</a>
+    </div>
+
+    <div id="grade-averages" class="stats-container">
+        <h2>학년별 통계</h2>
+        <table class="stats-table">
+            <thead>
+                <tr>
+                    <th>학년</th>
+                    <th>구분</th>
+                    <th>R</th>
+                    <th>L</th>
+                    <th>S</th>
+                    <th>W</th>
+                    <th>TOTAL</th>
+                    <th>인원</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td rowspan="2">7</td>
+                    <td>평균</td>
+                    <td>7.2</td>
+                    <td>12.0</td>
+                    <td>13.4</td>
+                    <td>12.3</td>
+                    <td>44.9</td>
+                    <td rowspan="2">10</td>
+                </tr>
+                <tr>
+                    <td>표준편차</td>
+                    <td>5.8</td>
+                    <td>9.2</td>
+                    <td>5.9</td>
+                    <td>3.4</td>
+                    <td>19.8</td>
+                </tr>
+                <tr>
+                    <td rowspan="2">8</td>
+                    <td>평균</td>
+                    <td>6.8</td>
+                    <td>7.1</td>
+                    <td>14.9</td>
+                    <td>15.0</td>
+                    <td>43.8</td>
+                    <td rowspan="2">9</td>
+                </tr>
+                <tr>
+                    <td>표준편차</td>
+                    <td>7.1</td>
+                    <td>4.4</td>
+                    <td>4.2</td>
+                    <td>1.6</td>
+                    <td>12.2</td>
+                </tr>
+                <tr>
+                    <td rowspan="2">9</td>
+                    <td>평균</td>
+                    <td>14.5</td>
+                    <td>14.0</td>
+                    <td>18.1</td>
+                    <td>18.5</td>
+                    <td>65.1</td>
+                    <td rowspan="2">13</td>
+                </tr>
+                <tr>
+                    <td>표준편차</td>
+                    <td>9.2</td>
+                    <td>8.7</td>
+                    <td>3.1</td>
+                    <td>3.4</td>
+                    <td>22.4</td>
+                </tr>
+                <tr>
+                    <td rowspan="2">10</td>
+                    <td>평균</td>
+                    <td>10.5</td>
+                    <td>12.5</td>
+                    <td>17.8</td>
+                    <td>16.8</td>
+                    <td>57.6</td>
+                    <td rowspan="2">6</td>
+                </tr>
+                <tr>
+                    <td>표준편차</td>
+                    <td>8.1</td>
+                    <td>7.6</td>
+                    <td>2.8</td>
+                    <td>3.4</td>
+                    <td>18.5</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div id="comparison">
+        <h2>성적 비교</h2>
+        <table class="stats-table">
+            <thead>
+                <tr>
+                    <th>이름</th>
+                    <th>R 이전</th>
+                    <th>R 현재</th>
+                    <th>L 이전</th>
+                    <th>L 현재</th>
+                    <th>S 이전</th>
+                    <th>S 현재</th>
+                    <th>W 이전</th>
+                    <th>W 현재</th>
+                    <th>TOTAL 이전</th>
+                    <th>TOTAL 현재</th>
+                </tr>
+            </thead>
+            <tbody id="comparison-body">
+                <!-- 비교 결과 -->
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        const augustData = [
+            { name: "구준모", R: 17, L: 12, S: 15, W: 20, TOTAL: 64 },
+            { name: "김효인", R: 27, L: 23, S: 20, W: 22, TOTAL: 92 },
+            { name: "최효주", R: 10, L: 13, S: 18, W: 20, TOTAL: 61 },
+            { name: "황준서", R: 8, L: 14, S: 18, W: 17, TOTAL: 57 },
+            { name: "오윤", R: 6, L: 12, S: 20, W: 14, TOTAL: 52 },
+            { name: "최주원", R: 12, L: 4, S: 18, W: 11, TOTAL: 45 },
+            { name: "강찬영", R: 28, L: 26, S: 23, W: 25, TOTAL: 102 },
+            { name: "김민지", R: 14, L: 12, S: 14, W: 17, TOTAL: 57 },
+            { name: "김예준", R: 0, L: 4, S: 14, W: 14, TOTAL: 32 },
+            { name: "박건민", R: 14, L: 13, S: 20, W: 20, TOTAL: 67 },
+            { name: "백나빈", R: 17, L: 21, S: 23, W: 25, TOTAL: 86 },
+            { name: "이강인", R: 2, L: 20, S: 0, W: 0, TOTAL: 22 },
+            { name: "이시온", R: 16, L: 19, S: 19, W: 17, TOTAL: 71 },
+            { name: "이예환", R: 21, L: 23, S: 18, W: 25, TOTAL: 87 },
+            { name: "정도현", R: 6, L: 9, S: 15, W: 17, TOTAL: 47 },
+            { name: "정시온", R: 17, L: 9, S: 18, W: 14, TOTAL: 58 },
+            { name: "조하은", R: 25, L: 22, S: 21, W: 20, TOTAL: 88 },
+            { name: "최주안", R: 17, L: 9, S: 20, W: 14, TOTAL: 60 },
+            { name: "김도현", R: 2, L: 6, S: 15, W: 14, TOTAL: 37 },
+            { name: "김다원", R: 12, L: 19, S: 18, W: 20, TOTAL: 69 },
+            { name: "신나라", R: 8, L: 4, S: 12, W: 11, TOTAL: 35 },
+            { name: "이강현", R: 14, L: 4, S: 16, W: 14, TOTAL: 48 },
+            { name: "이서진", R: 6, L: 7, S: 20, W: 17, TOTAL: 50 },
+            { name: "이우림", R: 14, L: 15, S: 14, W: 14, TOTAL: 57 },
+            { name: "김성민", R: 10, L: 3, S: 19, W: 11, TOTAL: 43 },
+            { name: "박선경", R: 10, L: 12, S: 8, W: 14, TOTAL: 44 },
+            { name: "이은성", R: 8, L: 6, S: 16, W: 17, TOTAL: 47 },
+            { name: "이서현", R: 4, L: 3, S: 12, W: 14, TOTAL: 33 },
+            { name: "송주안", R: 0, L: 1, S: 9, W: 11, TOTAL: 21 },
+            { name: "이온유", R: 10, L: 3, S: 15, W: 11, TOTAL: 39 },
+            { name: "박지용", R: 4, L: 6, S: 15, W: 5, TOTAL: 30 },
+            { name: "이아인", R: 14, L: 10, S: 15, W: 11, TOTAL: 50 },
+            { name: "윤수아", R: 2, L: 2, S: 15, W: 11, TOTAL: 30 },
+            { name: "우태웅", R: 2, L: 1, S: 12, W: 11, TOTAL: 26 },
+            { name: "백시안", R: 10, L: 9, S: 12, W: 11, TOTAL: 42 },
+            { name: "우도형", R: 2, L: 1, S: 0, W: 0, TOTAL: 0 },
+            { name: "김주원", R: 21, L: 21, S: 20, W: 17, TOTAL: 79 }
+        ];
+
+        const decemberData = [
+            { name: "구준모", R: 18, L: 13, S: 16, W: 21, TOTAL: 68 },
+            { name: "김효인", R: 28, L: 24, S: 21, W: 23, TOTAL: 96 },
+            { name: "최효주", R: 11, L: 14, S: 19, W: 21, TOTAL: 65 },
+            { name: "황준서", R: 9, L: 15, S: 19, W: 18, TOTAL: 61 },
+            { name: "오윤", R: 7, L: 13, S: 21, W: 15, TOTAL: 56 },
+            { name: "최주원", R: 13, L: 5, S: 19, W: 12, TOTAL: 49 },
+            { name: "강찬영", R: 29, L: 27, S: 24, W: 26, TOTAL: 106 },
+            { name: "김민지", R: 15, L: 13, S: 15, W: 18, TOTAL: 61 },
+            { name: "김예준", R: 1, L: 5, S: 15, W: 15, TOTAL: 36 },
+            { name: "박건민", R: 15, L: 14, S: 21, W: 21, TOTAL: 71 },
+            { name: "백나빈", R: 18, L: 22, S: 24, W: 26, TOTAL: 90 },
+            { name: "이강인", R: 3, L: 21, S: 1, W: 1, TOTAL: 26 },
+            { name: "이시온", R: 17, L: 20, S: 20, W: 18, TOTAL: 75 },
+            { name: "이예환", R: 22, L: 24, S: 19, W: 26, TOTAL: 91 },
+            { name: "정도현", R: 7, L: 10, S: 16, W: 18, TOTAL: 51 },
+            { name: "정시온", R: 18, L: 10, S: 19, W: 15, TOTAL: 62 },
+            { name: "조하은", R: 26, L: 23, S: 22, W: 21, TOTAL: 92 },
+            { name: "최주안", R: 18, L: 10, S: 21, W: 15, TOTAL: 64 },
+            { name: "김도현", R: 3, L: 7, S: 16, W: 15, TOTAL: 41 },
+            { name: "김다원", R: 13, L: 20, S: 19, W: 21, TOTAL: 73 },
+            { name: "신나라", R: 9, L: 5, S: 13, W: 12, TOTAL: 39 },
+            { name: "이강현", R: 15, L: 5, S: 17, W: 15, TOTAL: 52 },
+            { name: "이서진", R: 7, L: 8, S: 21, W: 18, TOTAL: 54 },
+            { name: "이우림", R: 15, L: 16, S: 15, W: 15, TOTAL: 61 },
+            { name: "김성민", R: 11, L: 4, S: 20, W: 12, TOTAL: 47 },
+            { name: "박선경", R: 11, L: 13, S: 9, W: 15, TOTAL: 48 },
+            { name: "이은성", R: 9, L: 7, S: 17, W: 18, TOTAL: 51 },
+            { name: "이서현", R: 5, L: 4, S: 13, W: 15, TOTAL: 37 },
+            { name: "송주안", R: 1, L: 2, S: 10, W: 12, TOTAL: 25 },
+            { name: "이온유", R: 11, L: 4, S: 16, W: 12, TOTAL: 43 },
+            { name: "박지용", R: 5, L: 7, S: 16, W: 6, TOTAL: 34 },
+            { name: "이아인", R: 15, L: 11, S: 16, W: 12, TOTAL: 54 },
+            { name: "윤수아", R: 3, L: 3, S: 16, W: 12, TOTAL: 34 },
+            { name: "우태웅", R: 3, L: 2, S: 13, W: 12, TOTAL: 30 },
+            { name: "백시안", R: 11, L: 10, S: 13, W: 12, TOTAL: 46 },
+            { name: "우도형", R: 3, L: 2, S: 1, W: 1, TOTAL: 7 },
+            { name: "김주원", R: 22, L: 22, S: 21, W: 18, TOTAL: 83 }
+        ];
+
+        function compareScores() {
+            const comparison = decemberData.map(curr => {
+                const prev = augustData.find(p => p.name === curr.name);
+                if (prev) {
+                    return {
+                        name: curr.name,
+                        R_prev: prev.R,
+                        R_curr: curr.R,
+                        L_prev: prev.L,
+                        L_curr: curr.L,
+                        S_prev: prev.S,
+                        S_curr: curr.S,
+                        W_prev: prev.W,
+                        W_curr: curr.W,
+                        TOTAL_prev: prev.TOTAL,
+                        TOTAL_curr: curr.TOTAL
+                    };
+                }
+                return null; // 8월에 응시하지 않은 경우
+            }).filter(Boolean); // null 값 제거
+
+            updateTable(comparison);
+        }
+
+        function updateTable(comparison) {
+            const tbody = document.getElementById('comparison-body');
+            tbody.innerHTML = comparison.map(c => `
+                <tr>
+                    <td>${c.name}</td>
+                    <td>${c.R_prev}</td>
+                    <td>${c.R_curr}</td>
+                    <td>${c.L_prev}</td>
+                    <td>${c.L_curr}</td>
+                    <td>${c.S_prev}</td>
+                    <td>${c.S_curr}</td>
+                    <td>${c.W_prev}</td>
+                    <td>${c.W_curr}</td>
+                    <td>${c.TOTAL_prev}</td>
+                    <td>${c.TOTAL_curr}</td>
+                </tr>
+            `).join('');
+        }
+
+        document.addEventListener('DOMContentLoaded', compareScores);
+    </script>
+</body>
+</html> 
