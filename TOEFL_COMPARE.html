@@ -190,7 +190,7 @@
 
         function compareScores() {
             const comparison = decemberData.map(curr => {
-                const prev = augustData.find(p => p.name === curr.name);
+                const prev = augustData.find(p => p.name.trim().toLowerCase() === curr.name.trim().toLowerCase());
                 if (prev) {
                     console.log('Comparing:', curr.name);
                     return {
@@ -208,9 +208,11 @@
                         TOTAL_curr: curr.TOTAL
                     };
                 }
-                return null;
-            }).filter(Boolean);
+                console.warn(`이름 매칭 실패: ${curr.name}`);
+        return null;
+    }).filter(Boolean);
 
+            console.log("최종 비교 데이터:", comparison);
             updateTable(comparison);
         }
 
