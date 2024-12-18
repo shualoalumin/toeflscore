@@ -190,11 +190,17 @@
             { name: "김주원", R: 22, L: 22, S: 21, W: 18, TOTAL: 83 }
         ];
 
+        document.addEventListener('DOMContentLoaded', () => {
+            const stats = calculateStatistics(decemberData);
+            updateGradeAveragesTable(stats);
+            compareScores();
+        });
+
         function compareScores() {
             const comparison = decemberData.map(curr => {
                 const prev = augustData.find(p => p.name === curr.name);
                 if (prev) {
-                    const grade = curr.name.match(/\d+/)[0];
+                    const grade = curr.name.match(/\d+/) ? curr.name.match(/\d+/)[0] : 'N/A';
                     return {
                         grade,
                         name: curr.name,
