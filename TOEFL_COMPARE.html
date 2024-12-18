@@ -183,8 +183,67 @@
         ];
 
         document.addEventListener('DOMContentLoaded', () => {
+            const stats = calculateStatistics(decemberData);
+            updateGradeAveragesTable(stats);
             compareScores();
         });
+
+        function calculateStatistics(data) {
+            const grades = {};
+
+            data.forEach(student => {
+                const grade = student.grade;
+                if (!grades[grade]) {
+                    grades[grade] = { R: [], L: [], S: [], W: [], TOTAL: [] };
+                }
+                grades[grade].R.push(student.R);
+                grades[grade].L.push(student.L);
+                grades[grade].S.push(student.S);
+                grades[grade].W.push(student.W);
+                grades[grade].TOTAL.push(student.TOTAL);
+            });
+
+            const stats = {};
+            for (const grade in grades) {
+                stats[grade] = {};
+                ['R', 'L', 'S', 'W', 'TOTAL'].forEach(section => {
+                    const values = grades[grade][section];
+                    const avg = values.reduce((a, b) => a + b, 0) / values.length;
+                    const stdDev = Math.sqrt(values.map(x => Math.pow(x - avg, 2)).reduce((a, b) => a + b) / values.length);
+                    stats[grade][section] = { average: avg.toFixed(1), stdDev: stdDev.toFixed(1) };
+                });
+            }
+
+            return stats;
+        }
+
+        function updateGradeAveragesTable(stats) {
+            const tbody = document.querySelector('#grade-averages tbody');
+            tbody.innerHTML = ''; // Clear existing rows
+
+            for (const grade in stats) {
+                const avgRow = `<tr>
+                    <td rowspan="2">${grade}</td>
+                    <td>평균</td>
+                    <td>${stats[grade].R.average}</td>
+                    <td>${stats[grade].L.average}</td>
+                    <td>${stats[grade].S.average}</td>
+                    <td>${stats[grade].W.average}</td>
+                    <td>${stats[grade].TOTAL.average}</td>
+                    <td rowspan="2">${grades[grade].R.length}</td>
+                </tr>`;
+                const stdDevRow = `<tr>
+                    <td>표준편차</td>
+                    <td>${stats[grade].R.stdDev}</td>
+                    <td>${stats[grade].L.stdDev}</td>
+                    <td>${stats[grade].S.stdDev}</td>
+                    <td>${stats[grade].W.stdDev}</td>
+                    <td>${stats[grade].TOTAL.stdDev}</td>
+                </tr>`;
+                tbody.innerHTML += avgRow + stdDevRow;
+            }
+        }
+
 
         function compareScores() {
             const comparison = decemberData.map(curr => {
